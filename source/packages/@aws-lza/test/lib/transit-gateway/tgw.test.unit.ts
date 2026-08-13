@@ -162,6 +162,20 @@ describe('configureTgw', () => {
     expect(result.response?.dxAssociations).toHaveLength(0);
   });
 
+  it('should pass through ownedResources from phase2 results in response', async () => {
+    const mockOwnedResources = ['assoc:tgw-rtb-core:tgw-attach-aaa', 'prop:tgw-rtb-core:tgw-attach-bbb'];
+    vi.mocked(configureAssociationsAndPropagations).mockResolvedValue({
+      associations: [],
+      propagations: [],
+      ownedResources: mockOwnedResources,
+    });
+
+    const result = await configureTgw(baseRequest);
+
+    expect(result.status).toBe('completed');
+    expect(result.response?.ownedResources).toEqual(mockOwnedResources);
+  });
+
   it('should merge DX attachments into Phase 2 request', async () => {
     vi.mocked(DirectConnectGatewayAssociation.resolveDxGatewayAssociations).mockResolvedValue({
       dxResponses: [
@@ -551,13 +565,14 @@ describe('configureTgw', () => {
     expect(result.error?.message).toBe('SSM parameter not found');
   });
 
-  it('should return FAILED on associations error', async () => {
+  it('should return FAILED on associations error without ownedResources in error response', async () => {
     vi.mocked(configureAssociationsAndPropagations).mockRejectedValue(new Error('Route table ID not resolved'));
 
     const result = await configureTgw(baseRequest);
 
     expect(result.status).toBe('failed');
     expect(result.error?.message).toBe('Route table ID not resolved');
+    expect(result.response).toBeUndefined();
   });
 
   it('should return FAILED with partial response when an association item fails', async () => {

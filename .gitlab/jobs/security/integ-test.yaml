@@ -5,12 +5,12 @@
 # S3 bucket + CMK in log archive account). Module test jobs depend on it via `needs`.
 #
 # All jobs assume role into the management account via AWS_CREDS_TARGET_ROLE.
-# Cross-account access (e.g., log archive) uses the same INTEGRATION_TEST_ROLE_NAME
+# Cross-account access (e.g., log archive) uses the same LZA_GITLAB_ROLE_NAME
 # which exists in every account with a trust policy allowing the management account role.
 #
 # Required GitLab CI variables (project/group level):
 #   ACCELERATOR_PREFIX          - e.g. AWSAccelerator
-#   INTEGRATION_TEST_ROLE_NAME  - e.g. LzaIntegrationTestRole
+#   LZA_GITLAB_ROLE_NAME        - e.g. LzaGitlabRole
 #   EXECUTE_INTEGRATION_TEST    - "Yes" to enable, "No" to disable
 #   SAMPLE_CONFIG_ENV_MANAGEMENT_ACCOUNT_ID
 #   SAMPLE_CONFIG_ENV_LOGARCHIVE_ACCOUNT_ID
@@ -53,7 +53,7 @@ integ:prereq:aws:us-east-1:
     LOGARCHIVE_ACCOUNT_ID: "${SAMPLE_CONFIG_ENV_LOGARCHIVE_ACCOUNT_ID}"
     PARTITION: aws
     AWS_DEFAULT_REGION: us-east-1
-    AWS_CREDS_TARGET_ROLE: "arn:${PARTITION}:iam::${ACCOUNT_ID}:role/${INTEGRATION_TEST_ROLE_NAME}"
+    AWS_CREDS_TARGET_ROLE: "arn:${PARTITION}:iam::${ACCOUNT_ID}:role/${LZA_GITLAB_ROLE_NAME}"
   tags:
     - arch:amd64
   script:
@@ -61,7 +61,7 @@ integ:prereq:aws:us-east-1:
     - unzip -q /tmp/awscliv2.zip -d /tmp
     - /tmp/aws/install
     - "cd source/packages/@aws-accelerator/accelerator/test/integration/infrastructure"
-    - "bash deploy-integ-prereqs.sh ${ACCELERATOR_PREFIX} ${AWS_DEFAULT_REGION} ${ACCOUNT_ID} ${LOGARCHIVE_ACCOUNT_ID} ${PARTITION} ${INTEGRATION_TEST_ROLE_NAME}"
+    - "bash deploy-integ-prereqs.sh ${ACCELERATOR_PREFIX} ${AWS_DEFAULT_REGION} ${ACCOUNT_ID} ${LOGARCHIVE_ACCOUNT_ID} ${PARTITION} ${LZA_GITLAB_ROLE_NAME}"
   artifacts:
     reports:
       dotenv: "source/packages/@aws-accelerator/accelerator/test/integration/infrastructure/integ-prereqs.env"
@@ -95,8 +95,8 @@ integ:macie:aws:us-east-1:
     ACCOUNT_ID: "${SAMPLE_CONFIG_ENV_MANAGEMENT_ACCOUNT_ID}"
     PARTITION: aws
     AWS_DEFAULT_REGION: us-east-1
-    AWS_CREDS_TARGET_ROLE: "arn:${PARTITION}:iam::${ACCOUNT_ID}:role/${INTEGRATION_TEST_ROLE_NAME}"
-    MANAGEMENT_ACCOUNT_ACCESS_ROLE: "${INTEGRATION_TEST_ROLE_NAME}"
+    AWS_CREDS_TARGET_ROLE: "arn:${PARTITION}:iam::${ACCOUNT_ID}:role/${LZA_GITLAB_ROLE_NAME}"
+    MANAGEMENT_ACCOUNT_ACCESS_ROLE: "${LZA_GITLAB_ROLE_NAME}"
     # Enable CloudWatch verbose logging — log group created by prereq infrastructure
     VERBOSE_LOG_GROUP_NAME: "${ACCELERATOR_PREFIX}-Module-Verbose-Logs"
     PIPELINE_ACCOUNT_ID: "${SAMPLE_CONFIG_ENV_MANAGEMENT_ACCOUNT_ID}"
@@ -151,8 +151,8 @@ integ:tgw:aws:us-east-1:
     ACCOUNT_ID: "${SAMPLE_CONFIG_ENV_MANAGEMENT_ACCOUNT_ID}"
     PARTITION: aws
     AWS_DEFAULT_REGION: us-east-1
-    AWS_CREDS_TARGET_ROLE: "arn:${PARTITION}:iam::${ACCOUNT_ID}:role/${INTEGRATION_TEST_ROLE_NAME}"
-    MANAGEMENT_ACCOUNT_ACCESS_ROLE: "${INTEGRATION_TEST_ROLE_NAME}"
+    AWS_CREDS_TARGET_ROLE: "arn:${PARTITION}:iam::${ACCOUNT_ID}:role/${LZA_GITLAB_ROLE_NAME}"
+    MANAGEMENT_ACCOUNT_ACCESS_ROLE: "${LZA_GITLAB_ROLE_NAME}"
     # Enable CloudWatch verbose logging — log group created by prereq infrastructure
     VERBOSE_LOG_GROUP_NAME: "${ACCELERATOR_PREFIX}-Module-Verbose-Logs"
     PIPELINE_ACCOUNT_ID: "${SAMPLE_CONFIG_ENV_MANAGEMENT_ACCOUNT_ID}"

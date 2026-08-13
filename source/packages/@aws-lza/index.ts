@@ -199,6 +199,7 @@ export {
   IDxTgwAssociationConfig,
   ITgwConnectConfig,
   ITgwConnectResponse,
+  ITgwOwnedResource,
   TgwAttachmentType,
   ITgwResolvedContext,
   ITgwAssociationResponse,

@@ -144,6 +144,7 @@ export async function configureTgw(props: ITgwModuleRequest): Promise<IModuleRes
       propagations: phase2Results.propagations,
       dxAssociations: dxResponses,
       connectAttachments: connectResponses,
+      ownedResources: phase2Results.ownedResources,
     };
 
     logSummary(response, dryRun, logPrefix);

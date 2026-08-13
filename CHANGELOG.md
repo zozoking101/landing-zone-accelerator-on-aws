@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - fix(deps): remediate HIGH CVEs (js-yaml, fast-uri, ip-address, nanoid, postcss, brace-expansion)
+- fix(tgw): only delete route table associations/propagations that LZA previously created, preserving externally-created resources
+
 
 ## [1.16.0] - 2026-07-24
 
