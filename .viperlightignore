@@ -98,8 +98,8 @@ source/packages/@aws-accelerator/config/lib/global-config.ts:1133
 
 # Accelerator specific assume role declaration
 
-source/packages/@aws-accelerator/constructs/lib/aws-accelerator/get-accelerator-metadata/index.ts:122
 source/packages/@aws-accelerator/constructs/lib/aws-accelerator/get-accelerator-metadata/index.ts:123
+source/packages/@aws-accelerator/constructs/lib/aws-accelerator/get-accelerator-metadata/index.ts:124
 
 # Accelerator specific assume role declaration
 
@@ -131,32 +131,32 @@ source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:554
 source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:559
 source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:795
 source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:796
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:915
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:916
 source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:918
 source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:919
 source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:921
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:925
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:926
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:927
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2047
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2048
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2156
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2157
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2165
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2166
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2174
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2175
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2183
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2184
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2192
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2193
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2201
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2202
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2924
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2925
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:3009
-source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:3010
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:922
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:924
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:928
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:929
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:930
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2050
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2051
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2159
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2160
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2168
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2169
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2177
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2178
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2186
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2187
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2195
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2196
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2204
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2205
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2927
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:2928
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:3012
+source/packages/@aws-accelerator/tools/lib/classes/accelerator-tool.ts:3013
 
 # Sample configuration READMEs
 
