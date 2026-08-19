@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - fix(accounts): prefer AWS Organizations account State, exclude non-ACTIVE accounts from deployment targets, limit uninstaller cleanup to ACTIVE and PENDING_CLOSURE accounts, and retain legacy Status compatibility
+- fix(asea): correct Route53 query log handling for LZA-created VPCs in ASEA-imported accounts
 
 ## [1.16.1] - 2026-08-17
 
