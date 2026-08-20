@@ -176,6 +176,28 @@ describe('configureTgw', () => {
     expect(result.response?.ownedResources).toEqual(mockOwnedResources);
   });
 
+  it('should merge route-table and DX Gateway owned resources into response ownedResources', async () => {
+    vi.mocked(configureAssociationsAndPropagations).mockResolvedValue({
+      associations: [],
+      propagations: [],
+      ownedResources: ['assoc:tgw-rtb-core:tgw-attach-aaa'],
+    });
+    vi.mocked(DirectConnectGatewayAssociation.resolveDxGatewayAssociations).mockResolvedValue({
+      dxResponses: [],
+      dxAttachments: [],
+      ownedResources: ['dxassoc:dxgw-111:tgw-0abc'],
+    });
+
+    const result = await configureTgw(baseRequest);
+
+    expect(result.status).toBe('completed');
+    // Both the route-table owned ID and the DX Gateway association owned ID must be persisted.
+    expect(result.response?.ownedResources).toEqual(
+      expect.arrayContaining(['assoc:tgw-rtb-core:tgw-attach-aaa', 'dxassoc:dxgw-111:tgw-0abc']),
+    );
+    expect(result.response?.ownedResources).toHaveLength(2);
+  });
+
   it('should merge DX attachments into Phase 2 request', async () => {
     vi.mocked(DirectConnectGatewayAssociation.resolveDxGatewayAssociations).mockResolvedValue({
       dxResponses: [

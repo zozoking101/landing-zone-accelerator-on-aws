@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - fix(deps): remediate HIGH CVEs (js-yaml, fast-uri, ip-address, nanoid, postcss, brace-expansion)
 - fix(tgw): only delete route table associations/propagations that LZA previously created, preserving externally-created resources
+- fix(tgw): only delete Direct Connect Gateway to Transit Gateway associations that LZA previously created, preserving externally-created associations
 
 
 ## [1.16.0] - 2026-07-24
