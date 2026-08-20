@@ -5568,6 +5568,10 @@ export interface IDnsFirewallRuleGroupConfig {
  * @description
  * Use this configuration to define local resolver endpoints and Route 53 query logging to the VPC.
  *
+ * Note: Resolver rules are not supported here. A `rules` array defined on endpoints under
+ * `vpcRoute53Resolver` is silently ignored. Define resolver rules under
+ * `centralNetworkServices.route53Resolver` instead.
+ *
  * @example
  * ```
  * vpcRoute53Resolver:
@@ -5580,7 +5584,6 @@ export interface IDnsFirewallRuleGroupConfig {
  *       subnets:
  *         - Subnet-A
  *         - Subnet-B
- *       rules: []
  *       tags: []
  *   queryLogs:
  *     name: accelerator-query-logs
