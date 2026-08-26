@@ -189,6 +189,7 @@ describe('SsmBlockPublicDocumentSharingModule', () => {
         organizationDetails: MOCK_CONSTANTS.organizationDetails,
         organizationAccounts,
         managementAccountCredentials: MOCK_CONSTANTS.credentials,
+        accountAccessRoleName: 'mockCustomDeploymentRole',
       },
     };
   }
@@ -574,6 +575,11 @@ describe('SsmBlockPublicDocumentSharingModule', () => {
 
       expect(mockGetCredentials).toHaveBeenCalledTimes(4);
       expect(mockManageBlockPublicDocumentSharing).toHaveBeenCalledTimes(5);
+      // Cross-account assume must use the runner-resolved role (honors customDeploymentRole),
+      // not globalConfig.managementAccountAccessRole.
+      expect(mockGetCredentials).toHaveBeenCalledWith(
+        expect.objectContaining({ assumeRoleName: 'mockCustomDeploymentRole' }),
+      );
 
       // Verify all accounts are enabled in us-east-1
       for (const account of testAccounts) {
@@ -1345,7 +1351,9 @@ describe('SsmBlockPublicDocumentSharingModule', () => {
       // Mock Date to ensure consistent formatting
       const mockDate = new Date('2023-01-01T12:00:00.000Z');
       const originalDate = global.Date;
-      global.Date = vi.fn(function() { return mockDate; }) as unknown as DateConstructor;
+      global.Date = vi.fn(function () {
+        return mockDate;
+      }) as unknown as DateConstructor;
       global.Date.now = originalDate.now;
 
       const result = await SsmBlockPublicDocumentSharingModule.execute(params);

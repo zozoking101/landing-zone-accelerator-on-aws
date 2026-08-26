@@ -57,6 +57,16 @@ centralSecurityServices:
 
 ---
 
+## Cross-account role used by modules
+
+For cross-account operations, modules resolve their role using the same precedence as the CDK deploy path:
+`cdkOptions.useManagementAccessRole` takes precedence (uses `managementAccountAccessRole`), then a configured
+`cdkOptions.customDeploymentRole`, otherwise `managementAccountAccessRole`. The default LZA-created role already
+has the required permissions; a custom role must trust the module runner and grant the per-module actions. See
+[Bootstrap → Deployment Role and SDK-based modules](../developer-guide/stacks/bootstrap.md) for details.
+
+---
+
 ## Verbose Logging
 
 Modules support verbose logging to CloudWatch for detailed troubleshooting. To enable:
@@ -95,7 +105,7 @@ If a module fails:
 |-------|-------|------------|
 | `InvalidInputException: unrecognized service principal` | Service not available in partition (e.g., Macie in GovCloud) | Module auto-skips in unsupported partitions. If you see this on older versions, upgrade LZA. |
 | `State management failure: DynamoDB table not found` | Prepare stack hasn't been deployed or table was deleted | Re-run the pipeline from the Prepare stage |
-| `AccessDeniedException` | Insufficient permissions for cross-account operations | Verify the management account access role exists in all accounts |
+| `AccessDeniedException` | Insufficient permissions for cross-account operations | Verify the cross-account role exists in all accounts. If `cdkOptions.customDeploymentRole` is set, ensure that role trusts the module runner and grants the module's required actions (see Bootstrap docs); otherwise verify the management account access role. |
 | `TooManyRequestsException` | API rate limiting | Pipeline will retry automatically. If persistent, check for concurrent executions. |
 
 ---

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - fix(accounts): prefer AWS Organizations account State, exclude non-ACTIVE accounts from deployment targets, limit uninstaller cleanup to ACTIVE and PENDING_CLOSURE accounts, and retain legacy Status compatibility
 - fix(asea): correct Route53 query log handling for LZA-created VPCs in ASEA-imported accounts
+- fix(modules): honor cdkOptions.customDeploymentRole for module cross-account operations when configured (behavior change: previously always used managementAccountAccessRole). No action needed when LZA creates the deployment role; if you bring your own role via cdkOptions.useExistingRoles, it must allow the management account to assume it and grant each enabled module's actions before upgrading, otherwise module execution fails with AccessDenied. See Bootstrap docs and MODULE_SESSION_POLICIES.
 
 ## [1.16.1] - 2026-08-17
 

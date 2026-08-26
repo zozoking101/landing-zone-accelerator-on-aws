@@ -188,6 +188,7 @@ export function buildBaseModuleParams(options: BaseParamsOptions): ModuleParams 
       },
       organizationAccounts: buildOrganizationAccounts(environment),
       managementAccountCredentials: environment.managementAccountCredentials,
+      accountAccessRoleName: accessRole,
     },
   };
 }

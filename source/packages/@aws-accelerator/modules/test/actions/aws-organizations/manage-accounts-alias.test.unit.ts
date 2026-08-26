@@ -71,6 +71,7 @@ describe('ManageAccountsAliasModule', () => {
       organizationDetails: MOCK_CONSTANTS.organizationDetails,
       organizationAccounts: MOCK_CONSTANTS.organizationAccounts,
       managementAccountCredentials: MOCK_CONSTANTS.credentials,
+      accountAccessRoleName: 'mockCustomDeploymentRole',
     },
   });
 
@@ -98,6 +99,11 @@ describe('ManageAccountsAliasModule', () => {
     // Verify - mockAccountsConfiguration has 2 accounts with aliases (Management and LogArchive)
     const expectedStatuses = `${status}\n${status}`;
     expect(awsLza.manageAccountAlias).toHaveBeenCalled();
+    // Runs pre-bootstrap (ACCOUNTS stage), so it must use managementAccountAccessRole — the role
+    // guaranteed to exist before accounts are bootstrapped — not the resolved accountAccessRoleName.
+    expect(commonFunctions.getCredentials).toHaveBeenCalledWith(
+      expect.objectContaining({ assumeRoleName: mockGlobalConfiguration.managementAccountAccessRole }),
+    );
     expect(response).toBe(
       `Module "${AcceleratorModules.MANAGE_ACCOUNTS_ALIAS}" completed successfully with status ${expectedStatuses}`,
     );

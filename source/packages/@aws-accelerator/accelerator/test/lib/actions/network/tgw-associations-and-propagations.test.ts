@@ -165,6 +165,9 @@ describe('TgwAssociationsAndPropagations', () => {
         acceleratorResourceNames: {} as AcceleratorResourceNames,
         logging: { centralizedRegion: 'us-east-1' },
         organizationAccounts: [],
+        // Distinct from globalConfig.managementAccountAccessRole so the assertion proves the module
+        // forwards the runner-resolved accountAccessRoleName (honoring customDeploymentRole).
+        accountAccessRoleName: 'MyCustomDeploymentRole',
       },
     };
   };
@@ -319,7 +322,9 @@ describe('TgwAssociationsAndPropagations', () => {
           moduleName: AcceleratorModules.TGW_ASSOCIATIONS_AND_PROPAGATIONS,
           configuration: expect.objectContaining({
             enable: true,
-            accountAccessRoleName: 'AWSControlTowerExecution',
+            // Must be the runner-resolved accountAccessRoleName (honors customDeploymentRole),
+            // not globalConfig.managementAccountAccessRole.
+            accountAccessRoleName: 'MyCustomDeploymentRole',
             homeRegion: 'us-east-1',
             transitGateways: [
               expect.objectContaining({ name: 'main-tgw', accountId: 'XXXXXXXXXXXX', region: 'us-east-1' }),

@@ -352,7 +352,7 @@ export abstract class TgwAssociationsAndPropagations {
       sessionPolicy: params.moduleRunnerParameters.sessionPolicy,
       configuration: {
         enable: true,
-        accountAccessRoleName: globalConfig.managementAccountAccessRole,
+        accountAccessRoleName: params.moduleRunnerParameters.accountAccessRoleName,
         homeRegion: globalConfig.homeRegion,
         transitGateways: tgwConfigs,
         attachments,

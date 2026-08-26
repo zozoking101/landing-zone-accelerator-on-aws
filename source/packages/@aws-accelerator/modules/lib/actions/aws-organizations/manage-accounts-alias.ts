@@ -67,6 +67,9 @@ export abstract class ManageAccountsAliasModule {
               region: globalConfig.homeRegion,
               solutionId: params.runnerParameters.solutionId,
               partition: params.runnerParameters.partition,
+              // Runs in the ACCOUNTS stage, before accounts are bootstrapped, so a customDeploymentRole
+              // is not guaranteed to exist in the target account yet. Use managementAccountAccessRole,
+              // which is the cross-account role guaranteed to be present pre-bootstrap.
               assumeRoleName: globalConfig.managementAccountAccessRole,
               credentials: params.moduleRunnerParameters.managementAccountCredentials,
             });
