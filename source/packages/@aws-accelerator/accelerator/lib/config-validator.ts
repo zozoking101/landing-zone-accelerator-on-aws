@@ -135,7 +135,15 @@ async function validateConfig(props: {
   let accountsConfig: AccountsConfig | undefined = undefined;
   try {
     accountsConfig = AccountsConfig.load(configDirPath);
-    await accountsConfig.loadAccountIds(props.partition, props.enableSingleAccountMode, orgsEnabled!, accountsConfig);
+    await accountsConfig.loadAccountIds(
+      props.partition,
+      props.enableSingleAccountMode,
+      orgsEnabled!,
+      accountsConfig,
+      undefined,
+      undefined, // loadFromDynamoDbTable — preserve existing behavior (always skipped here)
+      homeRegion,
+    );
   } catch (e) {
     initErrors.push({ file: AccountsConfig.FILENAME, message: e });
   }

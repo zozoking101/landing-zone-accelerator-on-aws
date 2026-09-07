@@ -421,6 +421,7 @@ export abstract class Accelerator {
       accountsConfig,
       undefined,
       props.loadFromDDB,
+      homeRegion,
     );
     const replacementsConfig = ReplacementsConfig.load(props.acceleratorProps.configDirPath, accountsConfig);
     await replacementsConfig.loadDynamicReplacements(homeRegion);

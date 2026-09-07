@@ -82,6 +82,7 @@ async function processReplacements(props: {
       accountsConfig,
       undefined,
       loadFromDynamoDbTable,
+      homeRegion,
     );
   } catch (e) {
     logger.error(`Error loading accounts config: ${e}`);
