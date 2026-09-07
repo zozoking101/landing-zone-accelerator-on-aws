@@ -290,6 +290,7 @@ export abstract class ConfigLoader {
     orgsEnabled: boolean,
     loadOrganizationsFromDynamoDbTable: boolean,
     managementAccountCredentials?: IAssumeRoleCredential,
+    homeRegion?: string,
   ): Promise<AccountsConfig> {
     // Load the base accounts configuration from the YAML file
     const accountsConfig = AccountsConfig.load(configDirPath);
@@ -302,6 +303,7 @@ export abstract class ConfigLoader {
       accountsConfig,
       managementAccountCredentials,
       loadOrganizationsFromDynamoDbTable,
+      homeRegion,
     );
 
     return accountsConfig;
@@ -455,6 +457,7 @@ export abstract class ConfigLoader {
       orgsEnabled,
       loadOrganizationsFromDynamoDbTable,
       managementAccountCredentials,
+      homeRegion,
     );
 
     //
