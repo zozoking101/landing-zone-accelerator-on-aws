@@ -35,8 +35,10 @@ export async function queryConfigTable(
   projectionExpression?: string,
   credentials?: Credentials,
   commitId?: string,
+  region?: string,
 ): Promise<Record<string, unknown>[]> {
   const client = AwsClientFactory.create(DynamoDBClient, {
+    ...(region && { region }),
     ...(credentials && { credentials }),
     logger,
   });
