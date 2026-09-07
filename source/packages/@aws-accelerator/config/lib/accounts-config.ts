@@ -232,24 +232,31 @@ export class AccountsConfig implements i.IAccountsConfig {
     enableSingleAccountMode: boolean,
     isOrgsEnabled: boolean,
     accountsConfig: AccountsConfig,
-    /**
-     * Management account credential when deployed from external account, otherwise this should remain undefined
-     */
     managementAccountCredentials?: AwsCredentialIdentity,
     loadFromDynamoDbTable?: boolean,
+    homeRegion?: string, // NEW
   ): Promise<void> {
     if (enableSingleAccountMode) {
       await this._loadAccountIdsForSingleAccountMode();
       return;
     }
 
-    if (!this.accountIds) this.accountIds = [];
+    if (!this.accountIds) {
+      this.accountIds = [];
+    }
 
     if (isOrgsEnabled) {
       if (loadFromDynamoDbTable) {
-        await this._loadAccountIdsFromDynamoDB(accountsConfig, managementAccountCredentials);
+        await this._loadAccountIdsFromDynamoDB(
+          accountsConfig,
+          managementAccountCredentials,
+          homeRegion, // Pass it
+        );
       } else {
-        await this._loadAccountIdsFromOrganizationsAPI(partition, managementAccountCredentials);
+        await this._loadAccountIdsFromOrganizationsAPI(
+          partition,
+          managementAccountCredentials,
+        );
       }
     } else {
       if (accountsConfig.accountIds) {
@@ -262,7 +269,10 @@ export class AccountsConfig implements i.IAccountsConfig {
 
   public getAccountId(name: string): string {
     const email = this.getAccount(name).email.toLocaleLowerCase();
-    const accountId = this.accountIds?.find(item => item.email.toLocaleLowerCase() === email)?.accountId;
+    const accountId = this.accountIds?.find(
+      item => item.email.toLocaleLowerCase() === email,
+    )?.accountId;
+
     if (accountId) {
       return accountId;
     }
@@ -454,15 +464,17 @@ export class AccountsConfig implements i.IAccountsConfig {
   private async _loadAccountIdsFromDynamoDB(
     accountsConfig: AccountsConfig,
     credentials?: AwsCredentialIdentity,
+    homeRegion?: string,          // NEW
   ): Promise<void> {
     logger.debug(`Orgs is enabled, solution will query from dynamoDB table instead of AWS Organizations API`);
     const ssmConfigTableNameParameter = `${this.acceleratorSsmParamNamePrefix}/prepare-stack/configTable/name`;
-
-    const configTableName = await getSSMParameterValue(ssmConfigTableNameParameter, credentials);
+  
+    const configTableName = await getSSMParameterValue(ssmConfigTableNameParameter, credentials, homeRegion);
     const [mandatoryAccountItems, workloadAccountItems] = await Promise.all([
-      queryConfigTable(configTableName, 'mandatoryAccount', 'orgInfo', credentials, this.configCommitId),
-      queryConfigTable(configTableName, 'workloadAccount', 'orgInfo', credentials, this.configCommitId),
+      queryConfigTable(configTableName, 'mandatoryAccount', 'orgInfo', credentials, this.configCommitId, homeRegion),
+      queryConfigTable(configTableName, 'workloadAccount', 'orgInfo', credentials, this.configCommitId, homeRegion),
     ]);
+  }
 
     const configAccountEmails = [
       ...accountsConfig.mandatoryAccounts.map(account => account.email.toLowerCase()),
