@@ -78,9 +78,12 @@ export abstract class ConfigLoader {
     const accountsConfig = AccountsConfig.load(configDirPath);
     const shouldSkipDynamoDbLookup =
       process.env['ACCELERATOR_SKIP_DYNAMODB_LOOKUP'] === 'true' || process.env['ACCELERATOR_STAGE'] === 'prepare';
-
+  
     const resolvedCredentials = managementAccountCredentials ? await managementAccountCredentials() : undefined;
-
+  
+    // NEW: resolve homeRegion locally so no caller signatures need to change
+    const homeRegion = GlobalConfig.loadRawGlobalConfig(configDirPath).homeRegion;
+  
     await accountsConfig.loadAccountIds(
       partition,
       false,
@@ -88,8 +91,9 @@ export abstract class ConfigLoader {
       accountsConfig,
       resolvedCredentials,
       !shouldSkipDynamoDbLookup,
+      homeRegion,          // NEW — last positional arg
     );
-
+  
     return accountsConfig;
   }
 
