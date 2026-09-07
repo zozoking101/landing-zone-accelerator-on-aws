@@ -42,9 +42,13 @@ export class SSMOperationError extends Error {
  * @returns {Promise<string>} - Returns the parameter value
  * @throws {SSMOperationError} - Throws a custom error with details about the failure
  */
-export async function getSSMParameterValue(parameterName: string, credentials?: Credentials): Promise<string> {
-  // Initialize SSM client with optional credentials
+export async function getSSMParameterValue(
+  parameterName: string,
+  credentials?: Credentials,
+  region?: string,
+): Promise<string> {
   const client = AwsClientFactory.create(SSMClient, {
+    ...(region && { region }),
     ...(credentials && { credentials }),
     logger,
   });
