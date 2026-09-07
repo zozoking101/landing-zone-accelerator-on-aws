@@ -474,7 +474,6 @@ export class AccountsConfig implements i.IAccountsConfig {
       queryConfigTable(configTableName, 'mandatoryAccount', 'orgInfo', credentials, this.configCommitId, homeRegion),
       queryConfigTable(configTableName, 'workloadAccount', 'orgInfo', credentials, this.configCommitId, homeRegion),
     ]);
-  }
 
     const configAccountEmails = [
       ...accountsConfig.mandatoryAccounts.map(account => account.email.toLowerCase()),
