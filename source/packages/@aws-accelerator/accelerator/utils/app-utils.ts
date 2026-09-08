@@ -466,7 +466,7 @@ export async function setAcceleratorStackProps(
     await replacementsConfig.loadDynamicReplacements(homeRegion);
     const globalConfig = GlobalConfig.load(context.configDirPath, replacementsConfig);
     const organizationConfig = OrganizationConfig.load(context.configDirPath, replacementsConfig);
-    await organizationConfig.loadOrganizationalUnitIds(context.partition, undefined, loadFromDynamoDbTable);
+    await organizationConfig.loadOrganizationalUnitIds(context.partition, undefined, loadFromDynamoDbTable, homeRegion);
 
     logger.info('Loaded all configs successfully');
 

@@ -194,6 +194,7 @@ export class OrganizationConfig implements i.IOrganizationConfig {
     partition: string,
     managementAccountCredentials?: AwsCredentialIdentity,
     loadFromDynamoDbTable?: boolean,
+    homeRegion?: string,
   ): Promise<void> {
     // Priority: passed credentials > env credentials > undefined
     const credentials = managementAccountCredentials ?? undefined;
@@ -213,7 +214,7 @@ export class OrganizationConfig implements i.IOrganizationConfig {
       const ssmConfigTableNameParameter = `${
         process.env['ACCELERATOR_SSM_PARAM_NAME_PREFIX'] ?? '/accelerator'
       }/prepare-stack/configTable/name`;
-      const configTableName = await getSSMParameterValue(ssmConfigTableNameParameter, credentials);
+      const configTableName = await getSSMParameterValue(ssmConfigTableNameParameter, credentials, homeRegion);
 
       const organizationItems = await queryConfigTable(
         configTableName,
@@ -221,6 +222,7 @@ export class OrganizationConfig implements i.IOrganizationConfig {
         'orgInfo',
         credentials,
         process.env['CONFIG_COMMIT_ID'],
+        homeRegion,
       );
 
       const configOuNames = [...this.organizationalUnits.map(ou => ou.name), 'Root'];
