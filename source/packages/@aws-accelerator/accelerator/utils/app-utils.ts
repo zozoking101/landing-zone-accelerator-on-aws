@@ -459,6 +459,7 @@ export async function setAcceleratorStackProps(
       accountsConfig,
       undefined,
       loadFromDynamoDbTable,
+      homeRegion,
     );
 
     const replacementsConfig = ReplacementsConfig.load(context.configDirPath, accountsConfig);
